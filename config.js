@@ -11,7 +11,6 @@ config.bot = {
         name: "Stats Bot",
         avatar: "https://media.discordapp.net/attachments/1061453021902544978/1140418112940945418/cdbz2.png",
     },
-    color: "#2b2b2b", // Default Embed Color
     activity_enabled: true, // If disabled Bot wont override Activity (if multiple Bots are running on same Token)
     activitys: [
         {
@@ -35,6 +34,7 @@ config.bot = {
 
 config.stats = {
     intervall: 5 * 60 * 1000, // Intervall of Stats Change (min 5 Minutes)
+    // Observers how many Users have a specific Role
     roles: [
         {
             enabled: true,
@@ -55,7 +55,7 @@ config.stats = {
             channel: "1147185812413358141"
         }
     ],
-    // Observers how may Channels are in a Category
+    // Observers how may Channels are in one or mutliple Categories
     channels: [
         {
             enabled: true,
@@ -73,6 +73,44 @@ config.stats = {
             channel: "1147199154490196052"
         }
     ],
+    // General Guild Stats
+    guild: {
+        users: {
+            enabled: false,
+            name: "👥︱Users: {counter}",
+            channel: "1147185633559842908"
+        },
+        boosts: {
+            enabled: false,
+            name: "💕︱Boosts: {counter}",
+            channel: "1147185812413358141"
+        },
+        roles: {
+            enabled: false,
+            name: "👑︱Roles: {counter}",
+            channel: "1147185764233392188"
+        },
+        channels: {
+            enabled: false,
+            name: "🎫︱Channels: {counter}",
+            channel: "1147185907049435216"
+        },
+        emojis: {
+            enabled: false,
+            name: "🎨︱Emojis: {counter}",
+            channel: "1147185941666301440"
+        },
+        bans: {
+            enabled: false,
+            name: "🔨︱Bans: {counter}",
+            channel: "1147185971660800000"
+        },
+        invites: {
+            enabled: false,
+            name: "📨︱Invites: {counter}",
+            channel: "1147186001660800000"
+        }
+    }
 }
 
 module.exports = config;
