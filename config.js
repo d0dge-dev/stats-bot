@@ -38,21 +38,9 @@ config.stats = {
     roles: [
         {
             enabled: true,
-            name: "👥︱Memebrs: {counter}",
-            role: "1140405831658110996",
-            channel: "1147185633559842908"
-        },
-        {
-            enabled: true,
             name: "👑︱Customers: {counter}",
             role: "1140405872250601523",
             channel: "1147185764233392188"
-        },
-        {
-            enabled: true,
-            name: "💕︱Boosters: {counter}",
-            role: "1141020085272723547",
-            channel: "1147185812413358141"
         }
     ],
     // Observers how may Channels are in one or mutliple Categories
@@ -76,12 +64,12 @@ config.stats = {
     // General Guild Stats
     guild: {
         users: {
-            enabled: false,
+            enabled: true,
             name: "👥︱Users: {counter}",
             channel: "1147185633559842908"
         },
         boosts: {
-            enabled: false,
+            enabled: true,
             name: "💕︱Boosts: {counter}",
             channel: "1147185812413358141"
         },

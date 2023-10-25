@@ -17,6 +17,7 @@ const client = new discord.Client({
 const config = require('./config.js');
 
 async function updateStats() {
+    // console.log('Updating Stats...')
     const rolestats = config.stats.roles;
     const channelstats = config.stats.channels;
     const messagestats = config.stats.messages;
