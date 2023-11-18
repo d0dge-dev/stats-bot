@@ -5,12 +5,12 @@ const client = new discord.Client({
         discord.GatewayIntentBits.Guilds,
         discord.GatewayIntentBits.GuildMembers,
         discord.GatewayIntentBits.GuildModeration,
-        discord.GatewayIntentBits.GuildMembers,
         discord.GatewayIntentBits.GuildMessages,
         discord.GatewayIntentBits.GuildMessageReactions,
-        discord.GatewayIntentBits.GuildPresences,
         discord.GatewayIntentBits.GuildInvites,
         discord.GatewayIntentBits.GuildMessageTyping,
+        discord.GatewayIntentBits.GuildPresences,
+
     ],
 });
 
@@ -22,8 +22,14 @@ async function updateStats() {
     const channelstats = config.stats.channels;
     const messagestats = config.stats.messages;
 
-
-    const guild = await client.guilds.fetch(config.guildid);
+    let guild 
+    
+    try {
+        guild = await client.guilds.fetch(config.guildid);
+    } catch (error) {
+        console.log("Please ensure that the bot is on the server and you have enterd to correct Guild ID in the config.js file.")
+        process.exit(1)
+    }
 
     rolestats.forEach(async rolestat => {
         if (rolestat.enabled) {
@@ -59,11 +65,11 @@ async function updateStats() {
     Object.keys(config.stats.guild).forEach(async key => {
         if (config.stats.guild[key].enabled) {
             const channel = guild.channels.cache.get(config.stats.guild[key].channel);
-            if (key === 'users') {
+            if (key === 'users') 
                 channel.setName(config.stats.guild[key].name.replace('{counter}', guild.memberCount));
-            } else if (key === 'boosts') {
+            else if (key === 'boosts') 
                 channel.setName(config.stats.guild[key].name.replace('{counter}', guild.premiumSubscriptionCount));
-            } else if (key === 'roles') {
+            else if (key === 'roles') {
                 channel.setName(config.stats.guild[key].name.replace('{counter}', guild.roles.cache.size));
             } else if (key === 'channels') {
                 channel.setName(config.stats.guild[key].name.replace('{counter}', guild.channels.cache.size));
@@ -80,11 +86,29 @@ async function updateStats() {
 }
 
 client.on('ready', () => {
-    console.log(client.guilds.cache.get(config.guildid))
+    console.log('Logged in as ' + client.user.tag + '!')
     updateStats();
     setInterval(async () => {
         await updateStats();
     }, config.stats.intervall)
+    if (!config.bot.activitys) return
+    if (!config.bot.intervall) return
+    if (!config.bot.activity_enabled) return
+    let i = 0
+    let j = config.bot.activitys.length - 1
+
+    setInterval(() => {
+        const activity = config.bot.activitys[i]
+        client.user.setPresence({
+            activities: [{
+                name: activity.name,
+                type: discord.ActivityType[activity.type]
+            }],
+            status: activity.status
+        });
+        i++
+        if (i > j) i = 0
+    }, config.bot.intervall);
 })
 
 client.login(config.bot.token);

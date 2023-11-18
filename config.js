@@ -41,7 +41,7 @@ config.stats = {
             name: "👑︱Customers: {counter}",
             role: "1140405872250601523",
             channel: "1147185764233392188"
-        }
+        },
     ],
     // Observers how may Channels are in one or mutliple Categories
     channels: [
